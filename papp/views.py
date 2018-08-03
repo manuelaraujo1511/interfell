@@ -34,32 +34,14 @@ def registro(request):
 		else:
 		'''
 		if Usuarios.objects.filter(email=email).exists():
-			user = Usuarios.objects.get(email=email)
-			if user.fin_registro == 1:
-				messages.error(request ,'Email ya se encuentra registrado')
-			else:
-
-				if user.fin_registro == 0:
-					if user.password == password:
-						messages.success(request, 'Finaliza tu registro.')
-						user = authenticate(request, username=username, password=password)
-						login(request, user)
-						context = {
-							'username': username,
-							'password' : password,
-							'success':1
-						}
-						return render(request, 'registroinsta.html', context)
-					else:
-						messages.success(request, 'Puedes finalizar tu resgistro.')
-						return render(request, 'singup.html',{'success':1})
+			messages.error(request ,'Email ya se encuentra registrado')
 		else:
 			user = User.objects.create_user(username, email, password)
 			user.first_name = nombre
 			user.last_name = apellido
 			user.save()
 
-			u = Usuarios(nombre=nombre, apellido=apellido, email=email,password=password,username=username)
+			u = Usuarios(nombre=nombre, apellido=apellido, email=email,password=password,username=username, pais=pais, nivel_academico=nivel_academico)
 			u.save()
 			user = authenticate(request, username=username, password=password)
 			login(request, user)
@@ -71,5 +53,5 @@ def registro(request):
 			#messages.success(request, 'calida')
 			return render(request, 'registroinsta.html', context)
 	
-	return render(request, 'registro.html')
+	
 	return render(request, 'register.html')	
