@@ -63,8 +63,8 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Profile</span>
+              
+              <span class="hidden-xs">Perfil</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -72,9 +72,7 @@
             
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
+               
                 <div class="pull-right">
                   <a href="{% url 'papp:singout' %}" class="btn btn-default btn-flat">Cerrar Sesion</a>
                 </div>
@@ -127,6 +125,7 @@
 <script src="static/bootstrap/js/bootstrap.min.js"></script>
 <!-- iCheck -->
 <script src="static/plugins/iCheck/icheck.min.js"></script>
+<script src="static/ajax_django.js"></script>
 <script>
   $(function () {
     $('input').iCheck({
@@ -136,7 +135,7 @@
     });
   });
 </script>
-
+{%block scripts%}{%endblock%}
 </html>
 
 

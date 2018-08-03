@@ -19,11 +19,11 @@ from .models import *
 @login_required
 def index(request):
 
-	todos_usuarios = Usuarios.objects.get()
+	todos_usuarios = Usuarios.objects.all()
 	context={
 	'usuarios': todos_usuarios
 	}
-	return render(request, 'index.html')
+	return render(request, 'index.html', context)
 
 def login(request):
 	if request.method == "POST":
@@ -82,3 +82,35 @@ def register(request):
 			return redirect("papp:index")
 	else:
 		return render(request, 'register.html')	
+
+def get(request):
+	if request.method == "POST":
+		if request.is_ajax():
+			id_user = request.POST.get('id')
+			user = Usuarios.objects.get(id=id_user)
+			usuario = {'nombre': user.nombre,'apellido':user.apellido, 'pais': user.pais,  'ciudad': user.ciudad, 'nivel_academico': user.nivel_academico}
+			context = {'usuario':usuario}
+			return JsonResponse(context)
+
+def edit(request):
+	if request.method == "POST":
+		id_user = request.POST['id_user']
+		nombre = request.POST['nombre']
+		apellido = request.POST['apellido']
+		pais = request.POST['pais']
+		ciudad = request.POST['ciudad']
+		nivel_academico = request.POST['nivel_academico']
+		user = Usuarios.objects.filter(id=id_user)	
+
+		for u in user:			
+
+			u.nombre = nombre
+			u.apellido=apellido
+			u.pais= pais
+			u.ciudad=ciudad
+			u.nivel_academico= nivel_academico
+			u.save()
+			estado=1
+		
+		context={'estado': estado}
+		return redirect("papp:index")
