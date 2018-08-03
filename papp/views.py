@@ -18,18 +18,51 @@ from .models import *
 
 @login_required
 def index(request):
-	# IMPORTANTE: comprobar conexion a internet
-	
 
+	todos_usuarios = Usuarios.objects.get()
+	context={
+	'usuarios': todos_usuarios
+	}
 	return render(request, 'index.html')
 
 def login(request):
+	if request.method == "POST":
+		email = request.POST['email']
+		password = request.POST['password']
+		try:
+
+			user_u = Usuarios.objects.get(email=email)
+			user_name=user_u.username
+
+		
+			if user_name is not False:
+				user = authenticate(request, username=user_name, password=password)
+				auth_login(request, user)
+
+				return redirect('papp:index')
+			else:
+				messages.error(request, 'Datos Incorrectos, Intente de Nuevo')
+				return render(request, 'login.html')	
+			
+		except ObjectDoesNotExist:
+			messages.error(request, 'Datos Incorrectos, Intente de Nuevo.')
+			return render(request, 'login.html')
+
 	return render(request, 'login.html')
+		
+
+@login_required
+def singout(request):
+	logout(request)
+	
+	return redirect('papp:login')
+	
 
 def register(request):
 	if request.method == "POST":
 		nombre = request.POST['nombre']
 		apellido = request.POST['apellido']
+		pais = request.POST['pais']
 		ciudad = request.POST['ciudad']
 		nivel_academico = request.POST['nivel_academico']
 		email = request.POST['email']

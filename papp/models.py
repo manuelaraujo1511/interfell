@@ -8,7 +8,8 @@ class Usuarios(models.Model):
 	email = models.EmailField()
 	password = models.CharField( max_length = 16, blank = True, null = True )
 	username = models.CharField( max_length = 100, blank = True, null = True )
-	ciudad = models.CharField( max_length = 9, blank = True, null = True)
+	ciudad = models.CharField( max_length = 100, blank = True, null = True)
+	pais = models.CharField( max_length = 100, blank = True, null = True)
 	nivel_academico = models.CharField( max_length = 100, blank = True, null = True)
 	direccion = models.CharField( max_length = 1000, blank = True, null = True)
 	
