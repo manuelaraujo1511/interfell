@@ -1,5 +1,8 @@
 from django.conf.urls import url
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
+from interfell.routers import router
+from django.urls import path, include
 
 from . import views
 
@@ -12,5 +15,6 @@ urlpatterns = [
 	url(r'^singout$', views.singout, name='singout'),
 	url(r'^edit$', views.edit, name='edit'),
 	url(r'^get$', views.get, name='get'),
+	path('users', TemplateView.as_view(template_name='index.html')),
 
 ]

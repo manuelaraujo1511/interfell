@@ -1,5 +1,5 @@
 {% extends 'layout/header.html'%} 
-{%block titulo%}Dashboard{%endblock%}
+{%block titulo%} Dashboard{%endblock%}
 {%block contenido%}
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -13,6 +13,8 @@
 
     <!-- Main content -->
     <section class="content">
+      
+      
       <div class="row">
         <div class="col-xs-12">
           <div class="box">
@@ -128,9 +130,10 @@
       </div>
     </div>
   </div>
+
   {%endblock%}
   {%block scripts%}
-
+  
   <script type="text/javascript">
   $(document).ready(function(){
     $('#tabla').on('click','.ModalEditarProducto',function(){

@@ -37,9 +37,12 @@ def login(request):
 		
 			if user_name is not False:
 				user = authenticate(request, username=user_name, password=password)
-				auth_login(request, user)
-
-				return redirect('papp:index')
+				if user:
+					auth_login(request, user)
+					return redirect('papp:index')
+				else:
+					messages.error(request, 'Datos Incorrectos, Intente de Nuevo')
+				return render(request, 'login.html')	
 			else:
 				messages.error(request, 'Datos Incorrectos, Intente de Nuevo')
 				return render(request, 'login.html')	
